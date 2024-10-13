@@ -1,21 +1,11 @@
 fn main() {
     let (star, space) = ('*', ' ');
-    let (height, mut stars_value, mut space_value) = (11, 1, 6);
+    let (mut stars_value, mut space_value) = (1, 6);
+    const HEIGHT: i32 = 11;
 
-    fn drawing(space_value: i32, stars_value: i32, star: char, space: char) {
-        for _ in 0..space_value {
-            print!("{}", space);
-        }
-
-        for _ in 0..stars_value {
-            print!("{}", star);
-        }
-
+    for i in 0..HEIGHT {
+        print!("{}{}", space.to_string().repeat(space_value as usize), star.to_string().repeat(stars_value as usize));
         println!();
-    }
-
-    for i in 0..height {
-        drawing(space_value, stars_value, star, space);
 
         if i <= 4 {
             stars_value += 2;
