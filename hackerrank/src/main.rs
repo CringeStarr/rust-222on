@@ -1,3 +1,4 @@
+//Тут виникають помилки, хоча на хаккерранк все працює =(
 //https://www.hackerrank.com/challenges/simple-array-sum/problem?isFullScreen=true
 
 use std::env;
