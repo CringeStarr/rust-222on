@@ -1,23 +1,26 @@
 #[test]
 fn test() {
-    let value = 4;
+    let quantity = 5;
 
-    fn draw(value: i32) {
-        for i in 0..value {
-            if i < 2 {   //Количество уровней треугольника (в 1 и 2 треугольнике всегда 3 уровня. Потом увеличиваеться на 1 каждый раз
-                for j in 0..3 {
-                    //первый уровень всегда 1, второй 3, третий 5 и тд
-                    print!("{}", "*".repeat(j as usize + 2));
-                    println!();
-                }
-            } else {
-                for a in 0..i + 2 {
-                    print!("{}", "*".repeat(a as usize + 2));
-                    println!();
+    fn draw(quantity: i32) {
+        for i in 0..quantity {
+            let mut stars = 3;
+            let mut spases = 5;
+
+            println!("{}{}", " ".repeat(spases as usize), "*");   //Перша зірочка завжди одна
+
+            if i == 0 {  //Перший трикутник
+                println!("{}{}", " ".repeat(spases as usize), "*");
+                println!("{}{}", " ".repeat((spases - 1) as usize), "***");
+            } else {   //Всі наступні трикутники
+                for _ in 0..(i + 1) {
+                    println!("{}{}", " ".repeat((spases - 1) as usize), "*".repeat(stars as usize));
+                    stars += 2;
+                    spases -= 1;
                 }
             }
         }
     }
 
-    draw(value);
+    draw(quantity);
 }
