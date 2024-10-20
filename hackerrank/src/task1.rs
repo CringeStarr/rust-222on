@@ -6,7 +6,7 @@ fn test1() {
     use std::fs::File;
     use std::io::{self, BufRead, Write};
 
-    fn simpleArraySum(ar: &[i32]) -> i32 {
+    fn simple_array_sum(ar: &[i32]) -> i32 {
         let length = ar.len();
         let mut result = 0;
 
@@ -14,7 +14,7 @@ fn test1() {
             result += ar[i];
         }
 
-        return result;
+        result
     }
 
     fn main() {
@@ -31,7 +31,7 @@ fn test1() {
             .map(|s| s.to_string().parse::<i32>().unwrap())
             .collect();
 
-        let result = simpleArraySum(&ar);
+        let result = simple_array_sum(&ar);
 
         writeln!(&mut fptr, "{}", result).ok();
     }
