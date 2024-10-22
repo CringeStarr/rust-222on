@@ -1,4 +1,6 @@
 #[test]
+//Виникають помилки(((
+
 fn test_is_prime() {
     let test_data = [
         (0, false),
@@ -19,12 +21,12 @@ fn test_is_prime() {
 }
 
 fn is_prime(n: &u32) -> bool {
-    let mut factorial = 0;
+    let mut factorial = 1;
     let result: bool;
 
     if *n < 2 { result = false } else {
         for i in 1..*n {
-            factorial += i;
+            factorial *= i;
         }
 
         result = (factorial + 1) % n == 0;

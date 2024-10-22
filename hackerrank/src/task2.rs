@@ -11,13 +11,6 @@ fn test() {
      */
 
     fn hourglassSum(arr: &[Vec<i32>]) -> i32 {
-        //x x x x x x
-        //x x x x x x
-        //x x x x x x
-        //x x x x x x
-        //x x x x x x
-        //x x x x x x
-
         let x = arr[0].len();
         let y = arr.len();
         let mut sum = i32::MIN;
