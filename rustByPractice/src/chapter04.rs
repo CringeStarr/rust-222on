@@ -146,3 +146,201 @@ fn test11() {
 }
 
 //04.2
+
+#[test]
+fn test12() {
+    // Make it work
+    use std::mem::size_of_val;
+
+    let c1 = 'a';
+    assert_eq!(size_of_val(&c1), 4);
+
+    let c2 = '中';
+    assert_eq!(size_of_val(&c2), 4);
+
+    println!("Success!");
+}
+
+#[test]
+fn test13() {
+    // Make it work
+
+    let c1 = '中';
+    print_char(c1);
+
+    fn print_char(c: char) {
+        println!("{}", c);
+    }
+}
+
+#[test]
+fn test14() {
+    // Make println! work
+    let _f: bool = false;
+
+    let t = true;
+    if t {
+        println!("Success!");
+    }
+}
+
+#[test]
+fn test15() {
+    // Make it work
+    let f = false;
+    let t = true && false;
+    assert_eq!(t, f);
+
+    println!("Success!");
+}
+
+#[test]
+fn test16() {
+    // Make it work, don't modify `implicitly_ret_unit` !
+    let _v: () = ();
+
+    let v = (2, 3);
+    assert_eq!(_v, implicitly_ret_unit());
+
+    println!("Success!");
+
+    fn implicitly_ret_unit() {
+        println!("I will return a ()");
+    }
+
+    // Don't use this one
+    fn explicitly_ret_unit() -> () {
+        println!("I will return a ()");
+    }
+}
+
+#[test]
+fn test17() {
+    // Modify `4` in assert to make it work
+    use std::mem::size_of_val;
+
+    let unit: () = ();
+    assert!(size_of_val(&unit) == 0);
+
+    println!("Success!");
+}
+
+//04.3
+
+#[test]
+fn test18() {
+    // Make it work with two ways
+    let v = {
+        let mut x = 1;
+        x += 2;
+
+        x
+    };
+
+    assert_eq!(v, 3);
+
+    println!("Success!");
+}
+
+#[test]
+fn test19() {
+    let v = 3;
+
+    assert!(v == 3);
+
+    println!("Success!");
+}
+
+#[test]
+fn test20() {
+    let s = sum(1, 2);
+    assert_eq!(s, 3);
+
+    println!("Success!");
+
+    fn sum(x: i32, y: i32) -> i32 {
+        x + y
+    }
+}
+
+//04.4
+
+#[test]
+fn test21() {
+    // Don't modify the following two lines!
+    let (x, y) = (1, 2);
+    let s = sum(x, y);
+
+    assert_eq!(s, 3);
+
+    println!("Success!");
+
+    fn sum(x: i32, y: i32) -> i32 {
+        x + y
+    }
+}
+
+#[test]
+fn test22() {
+    print();
+
+    // Replace i32 with another type
+    fn print() -> () {
+        println!("Success!");
+    }
+}
+
+#[test]
+fn test23() {
+    // Solve it in two ways
+    // DON'T let `println!` work
+
+    never_return();
+    println!("Failed!");
+
+    fn never_return() -> ! {
+        // Implement this function, don't modify the fn signatures
+        panic!();
+    }
+}
+
+#[test]
+fn test24() {
+    println!("Success!");
+
+    fn get_option(tp: u8) -> Option<i32> {
+        match tp {
+            1 => {
+                // TODO
+            }
+            _ => {
+                // TODO
+            }
+        };
+
+        // Rather than returning a None, we use a diverging function instead
+        never_return_fn()
+    }
+
+    // IMPLEMENT this function in THREE ways
+    fn never_return_fn() -> ! {
+        panic!();
+    }
+}
+
+#[test]
+fn test25() {
+    // FILL in the blank
+    let b = false;
+
+    let _v = match b {
+        true => 1,
+        // Diverging functions can also be used in match expression to replace a value of any value
+        false => {
+            println!("Success!");
+            panic!("we have no value for `false`, but we can panic");
+        }
+    };
+
+    println!("Exercise Failed if printing out this line!");
+}
