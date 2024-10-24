@@ -132,5 +132,60 @@ fn test10() {
 
 #[test]
 fn test11() {
+    let s1 = String::from("hi,中国");
+    let h = s1[0]; // Modify this line to fix the error, tips: `h` only takes 1 byte in UTF8 format
+    assert_eq!(h, "h");
 
+    let h1 = &s1[3..5]; // Modify this line to fix the error, tips: `中`  takes 3 bytes in UTF8 format
+    assert_eq!(h1, "中");
+
+    println!("Success!");
+    //не знаю як це зробити
+}
+
+#[test]
+fn test12() {
+    // Fill the blank to print each char in "你好，世界"
+    for c in "你好，世界".chars() {
+        println!("{}", c)
+    }
+}
+
+#[test]
+fn test13() {
+    use utf8_slice;
+
+    let s = "The 🚀 goes to the 🌑!";
+
+    let rocket = utf8_slice::slice(s, 4, 5);
+    // Will equal "🚀"
+
+    //Теж не знаю(
+}
+
+//06.2
+
+#[test]
+fn test14() {
+    // Fill the blank with proper array type
+    let arr: [i32; 5] = [1, 2, 3, 4, 5];
+
+    // Modify the code below to make it work
+    assert!(arr.len() == 5);
+
+    println!("Success!");
+}
+
+#[test]
+fn test15() {
+    // We can ignore parts of the array type or even the whole type, let the compiler infer it for us
+    let arr0 = [1, 2, 3];
+    let arr: [_; 3] = ['a', 'b', 'c'];
+
+    // Fill the blank
+    // Arrays are stack allocated, `std::mem::size_of_val` returns the bytes which an array occupies
+    // A char takes 4 bytes in Rust: Unicode char
+    assert!(std::mem::size_of_val(&arr) == arr0[arr0.len() - 1]);
+
+    println!("Success!");
 }
