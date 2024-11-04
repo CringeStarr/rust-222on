@@ -133,10 +133,11 @@ fn test10() {
 #[test]
 fn test11() {
     let s1 = String::from("hi,中国");
-    let h = s1[0]; // Modify this line to fix the error, tips: `h` only takes 1 byte in UTF8 format
-    assert_eq!(h, "h");
 
-    let h1 = &s1[3..5]; // Modify this line to fix the error, tips: `中`  takes 3 bytes in UTF8 format
+    let h = s1.chars().nth(0).unwrap(); // Получаем первый символ
+    assert_eq!(h, 'h'); // `h` является символом, поэтому используем одинарные кавычки
+
+    let h1 = &s1[3..6]; // Используем диапазон байтов для "中"
     assert_eq!(h1, "中");
 
     println!("Success!");
@@ -185,7 +186,220 @@ fn test15() {
     // Fill the blank
     // Arrays are stack allocated, `std::mem::size_of_val` returns the bytes which an array occupies
     // A char takes 4 bytes in Rust: Unicode char
-    assert!(std::mem::size_of_val(&arr) == arr0[arr0.len() - 1]);
+    assert_eq!(std::mem::size_of_val(&arr), arr0[arr0.len() - 1]);
+
+    println!("Success!");
+}
+
+#[test]
+fn test16() {
+    // Fill the blank
+    let list: [i32; 100] = [1; 100];
+
+    assert!(list[0] == 1);
+    assert!(list.len() == 100);
+
+    println!("Success!");
+}
+
+#[test]
+fn test17() {
+    // Fix the error
+    let _arr = [1, 2, 3];
+
+    println!("Success!");
+}
+
+#[test]
+fn test18() {
+    let arr = ['a', 'b', 'c'];
+
+    let ele = arr[0]; // Only modify this line to make the code work!
+
+    assert!(ele == 'a');
+
+    println!("Success!");
+}
+
+#[test]
+fn test19() {
+    let names = [String::from("Sunfei"), "Sunface".to_string()];
+
+    // `Get` returns an Option<T>, it's safe to use
+    let name0 = names.get(0).unwrap();
+
+    // But indexing is not safe
+    let _name1 = &names.get(1).unwrap();
+
+    println!("Success!");
+}
+
+//06.3
+#[test]
+fn test20() {
+    // Fix the errors, DON'T add new lines!
+
+    let arr = [1, 2, 3];
+    let s1 = &arr[0..2];
+
+    let s2: &str = "hello, world";
+
+    println!("Success!");
+}
+
+#[test]
+fn test21() {
+    let arr: [char; 3] = ['中', '国', '人'];
+
+    let slice = &arr[..2];
+
+    // Modify '8' to make it work
+    // TIPS: slice( reference ) IS NOT an array, if it is an array, then `assert!` will be passed: Each of the two chars '中' and '国'  occupies 4 bytes, 2 * 4 = 8
+    assert!(std::mem::size_of_val(&slice) == 16);
+
+    println!("Success!");
+}
+
+#[test]
+fn test22() {
+    let arr: [i32; 5] = [1, 2, 3, 4, 5];
+    // Fill the blanks to make the code work
+    let slice: &[i32] = &arr[1..4];
+    assert_eq!(slice, &[2, 3, 4]);
+
+    println!("Success!");
+}
+
+#[test]
+fn test23() {
+    let s = String::from("hello");
+
+    let slice1 = &s[0..2];
+    // Fill the blank to make the code work, DON'T USE 0..2 again
+    let slice2 = &s[..2];
+
+    assert_eq!(slice1, slice2);
+
+    println!("Success!");
+}
+
+#[test]
+fn test24() {
+    let s = "你好，世界";
+    // Modify this line to make the code work
+    let slice = &s[0..3];
+
+    assert!(slice == "你");
+
+    println!("Success!");
+}
+
+#[test]
+fn test25() {
+    // Fix errors
+
+    let s = &mut String::from("hello world");
+
+    // Here, &s is `&String` type, but `first_letter` needs a `&str` type.
+    // It works because `&String` can be implicitly converted to `&str. If you want to know more, this is called `Deref coercion`.
+    let letter = first_letter(&s);
+
+
+    println!("the first letter is: {}", letter);
+    s.clear(); // error!
+
+    fn first_letter(s: &str) -> &str {
+        &s[..1]
+    }
+}
+
+//06.4
+
+#[test]
+fn test26() {
+    let _t0: (u8, i16) = (0, -1);
+    // Tuples can be tuple's members
+    let _t1: (u8, (i16, u32)) = (0, (-1, 1));
+    // Fill the blanks to make the code work
+    let t: (u8, u16, i64, &str, String) = (1u8, 2u16, 3i64, "hello", String::from(", world"));
+
+    println!("Success!");
+}
+
+#[test]
+fn test27() {
+    let t = ("i", "am", "sunface");
+    assert_eq!(t.2, "sunface");
+
+    println!("Success!");
+}
+
+#[test]
+fn test28() {
+    let too_long_tuple = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13];
+    println!("too long tuple: {:?}", too_long_tuple);
+}
+
+#[test]
+fn test29() {
+    let tup = (1, 6.4, "hello");
+
+    // Fill the blank to make the code work
+    let (x, z, y) = tup;
+
+    assert_eq!(x, 1);
+    assert_eq!(y, "hello");
+    assert_eq!(z, 6.4);
+
+    println!("Success!");
+}
+
+#[test]
+fn test30() {
+    let (x, y, z);
+
+    // Fill the blank
+    (y, z, x) = (1, 2, 3);
+
+    assert_eq!(x, 3);
+    assert_eq!(y, 1);
+    assert_eq!(z, 2);
+
+    println!("Success!");
+}
+
+#[test]
+fn test31() {
+    // Fill the blank, need a few computations here.
+    let (x, y) = sum_multiply((2, 3));
+
+    assert_eq!(x, 5);
+    assert_eq!(y, 6);
+
+    println!("Success!");
+
+
+    fn sum_multiply(nums: (i32, i32)) -> (i32, i32) {
+        (nums.0 + nums.1, nums.0 * nums.1)
+    }
+}
+
+//06.5
+
+#[test]
+fn test32() {
+    struct Person {
+        name: String,
+        age: u8,
+        hobby: String,
+    }
+
+    let age = 30;
+    let p = Person {
+        name: String::from("sunface"),
+        age,
+        hobby: "sd".to_string(),
+    };
 
     println!("Success!");
 }
