@@ -43,6 +43,8 @@ fn area_occupied(xs: &Vec<Rectangle>) -> i32 {
     sum - (overlap_area_1_2 + overlap_area_1_3)
 }
 
+
+
 fn test_data() -> Vec<Rectangle> {
     vec![
         Rectangle {
