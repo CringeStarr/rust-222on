@@ -403,3 +403,345 @@ fn test32() {
 
     println!("Success!");
 }
+
+#[test]
+fn test33() {
+    struct Unit;
+    trait SomeTrait {
+        // ...Some behaviors defined here.
+    }
+
+    // We don't care about what fields  are  in the Unit, but we care about its behaviors.
+    // So we use a struct with no fields and implement some behaviors for it
+    impl SomeTrait for Unit {}
+
+    let u = Unit;
+    do_something_with_unit(u);
+
+    println!("Success!");
+
+    // Fill the blank to make the code work
+    fn do_something_with_unit(u: Unit) {}
+}
+
+#[test]
+fn test34() {
+    // Fix the error and fill the blanks
+    struct Color(i32, i32, i32);
+    struct Point(i32, i32, i32);
+
+    let v = Point(0, 127, 255);
+    check_color(v);
+
+    println!("Success!");
+
+
+    fn check_color(p: Point) {
+        let x = p.0;
+        assert_eq!(x, 0);
+        assert_eq!(p.1, 127);
+        assert_eq!(p.2, 255);
+    }
+}
+
+#[test]
+fn test35() {
+    // Fill the blank and fix the error without adding/removing new line
+    struct Person {
+        name: String,
+        age: u8,
+    }
+
+    let age = 18;
+    let mut p = Person {
+        name: String::from("sunface"),
+        age,
+    };
+
+    // How can you believe sunface is only 18?
+    p.age = 30;
+
+    // Fill the blank
+    p.name = String::from("sunfei");
+
+    println!("Success!");
+}
+
+#[test]
+fn test36() {
+    // Fill the blank
+    struct Person {
+        name: String,
+        age: u8,
+    }
+
+    println!("Success!");
+
+    fn build_person(name: String, age: u8) -> Person {
+        Person {
+            age,
+            name,
+        }
+    }
+}
+
+#[test]
+fn test37() {
+    // Fill the blank to make the code work
+    struct User {
+        active: bool,
+        username: String,
+        email: String,
+        sign_in_count: u64,
+    }
+
+    let u1 = User {
+        email: String::from("someone@example.com"),
+        username: String::from("sunface"),
+        active: true,
+        sign_in_count: 1,
+    };
+
+    let u2 = set_email(u1);
+
+    println!("Success!");
+
+    fn set_email(u: User) -> User {
+        User {
+            email: String::from("contact@im.dev"),
+            ..u
+        }
+    }
+}
+
+#[test]
+fn test38() {
+    // Fill the blanks to make the code work
+    #[derive(Debug)]
+    struct Rectangle {
+        width: u32,
+        height: u32,
+    }
+
+    let scale = 2;
+    let rect1 = Rectangle {
+        width: dbg!(30 * scale), // Print debug info to stderr and assign the value of  `30 * scale` to `width`
+        height: 50,
+    };
+
+    dbg!(&rect1); // Print debug info to stderr
+
+    println!("{:?}", rect1); // Print debug info to stdout
+}
+
+#[test]
+fn test39() {
+    // Fix errors to make it work
+    #[derive(Debug)]
+    struct File {
+        name: String,
+        data: String,
+    }
+
+    let f = File {
+        name: String::from("readme.md"),
+        data: "Rust By Practice".to_string(),
+    };
+
+    let _name = f.name;
+
+    // ONLY modify this line
+    println!("{}, {}, {:?}", _name, f.data, "File");
+}
+
+
+//06.6
+#[test]
+fn test40() {
+    // Fix the errors
+    enum Number {
+        Zero,
+        One,
+        Two,
+    }
+
+    enum Number1 {
+        Zero = 0,
+        One,
+        Two,
+    }
+
+    // C-like enum
+    enum Number2 {
+        Zero = 0.0 as isize,
+        One = 1.0 as isize,
+        Two = 2.0 as isize,
+    }
+
+    // An enum variant can be converted to a integer by `as`
+    assert_eq!(Number::One as isize, Number1::One as isize);
+    assert_eq!(Number1::One as isize, Number2::One as isize);
+
+    println!("Success!");
+}
+
+#[test]
+fn test41() {
+    // Fill in the blank
+    enum Message {
+        Quit,
+        Move { x: i32, y: i32 },
+        Write(String),
+        ChangeColor(i32, i32, i32),
+    }
+
+    let msg1 = Message::Move { x: 1, y: 2 }; // Instantiating with x = 1, y = 2
+    let msg2 = Message::Write(String::from("hello, world")); // Instantiating with "hello, world!"
+
+    println!("Success!");
+}
+
+#[test]
+fn test42() {
+    // Fill in the blank and fix the error
+    enum Message {
+        Quit,
+        Move { x: i32, y: i32 },
+        Write(String),
+        ChangeColor(i32, i32, i32),
+    }
+
+    let msg = Message::Move { x: 2, y: 2 };
+
+    if let Message::Move { x: a, y: b } = msg {
+        assert_eq!(a, b);
+    } else {
+        panic!("NEVER LET THIS RUN！");
+    }
+
+    println!("Success!");
+}
+
+#[test]
+fn test43() {
+    // Fill in the blank and fix the errors
+    #[derive(Debug)]
+
+    enum Message {
+        Quit,
+        Move { x: i32, y: i32 },
+        Write(String),
+        ChangeColor(i32, i32, i32),
+    }
+
+    let msgs: [Message; 3] = [
+        Message::Quit,
+        Message::Move { x: 1, y: 3 },
+        Message::ChangeColor(255, 255, 0)
+    ];
+
+    for msg in msgs {
+        show_message(msg)
+    }
+
+    fn show_message(msg: Message) {
+        println!("{:?}", msg);
+    }
+}
+
+#[test]
+fn test44() {
+    // Fill in the blank to make the `println` work.
+    // Also add some code to prevent the `panic` from running.
+
+    let five = Some(5);
+    let six = plus_one(five);
+    let none = plus_one(None);
+
+    if let Some(n) = six {
+        println!("{}", n);
+
+        println!("Success!");
+    }
+
+    //panic!("NEVER LET THIS RUN！");
+
+    fn plus_one(x: Option<i32>) -> Option<i32> {
+        match x {
+            None => None,
+            Some(i) => Some(i + 1),
+        }
+    }
+}
+
+#[test]
+fn test45() {
+    // use crate::List::*;
+    //
+    // enum List {
+    //     // Cons: Tuple struct that wraps an element and a pointer to the next node
+    //     Cons(u32, Box<List>),
+    //     // Nil: A node that signifies the end of the linked list
+    //     Nil,
+    // }
+    //
+    // // Methods can be attached to an enum
+    // impl List {
+    //     // Create an empty list
+    //     fn new() -> List {
+    //         // `Nil` has type `List`
+    //         List::Nil
+    //     }
+    //
+    //     // Consume a list, and return the same list with a new element at its front
+    //     fn prepend(self, elem: u32) -> List {
+    //         // `Cons` also has type List
+    //         Cons(elem, Box::new(self))
+    //     }
+    //
+    //     // Return the length of the list
+    //     fn len(&self) -> u32 {
+    //         // `self` has to be matched, because the behavior of this method
+    //         // depends on the variant of `self`
+    //         // `self` has type `&List`, and `*self` has type `List`, matching on a
+    //         // concrete type `T` is preferred over a match on a reference `&T`
+    //         // After Rust 2018 you can use self here and tail (with no ref) below as well,
+    //         // rust will infer &s and ref tail.
+    //         // See https://doc.rust-lang.org/edition-guide/rust-2018/ownership-and-lifetimes/default-match-bindings.html
+    //         match *self {
+    //             // Can't take ownership of the tail, because `self` is borrowed;
+    //             // Instead take a reference to the tail
+    //             Cons(_, ref tail) => 1 + tail.len(),
+    //             // Base Case: An empty list has zero length
+    //             Nil => 0
+    //         }
+    //     }
+    //
+    //     // Return representation of the list as a (heap allocated) string
+    //     fn stringify(&self) -> String {
+    //         match *self {
+    //             Cons(head, ref tail) => {
+    //                 // `format!` is similar to `print!`, but returns a heap
+    //                 // allocated string instead of printing to the console
+    //                 format!("{}, {}", head, tail.stringify())
+    //             }
+    //             Nil => {
+    //                 format!("Nil")
+    //             }
+    //         }
+    //     }
+    // }
+    //
+    //
+    // // Create an empty linked list
+    // let mut list = List::new();
+    //
+    // // Prepend some elements
+    // list = list.prepend(1);
+    // list = list.prepend(2);
+    // list = list.prepend(3);
+    //
+    // // Show the final state of the list
+    // println!("linked list has length: {}", list.len());
+    // println!("{}", list.stringify());
+}
